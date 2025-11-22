@@ -9,32 +9,35 @@ This project requires Python 3.8+ and PyTorch. The environment used is PyTorch (
 ### Dependencies
 
 - Python 3.8+
-- PyTorch
-- torchvision
-- numpy
-- click
-- tqdm
-- scikit-learn
-- tensorboard
+- Torch = 2.4.1+cu118
+- torchaudio = 2.4.1+cu118
+- torchvision = 0.19.1+cu118
+- numpy = 1.24.3
+- click = 8.1.7
+- tqdm = 4.67.0
+- timm = 0.5.4
+- scikit-learn = 1.0.2
+- tensorboard = 2.14.0
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd SimpleNet-main2
+git clone https://github.com/DL-Mao/Un-AMNet.git
+cd Un-AMNet
 ```
 
 2. Install required packages:
 ```bash
-pip install torch torchvision numpy click tqdm scikit-learn tensorboard
+pip install torch==2.4.1+cu118 torchvision==0.19.1+cu118 torchaudio==2.4.1+cu118 --index-url https://download.pytorch.org/whl/cu118
+pip install numpy==1.24.3 click==8.1.7 tqdm==4.67.0 timm==0.5.4 scikit-learn==1.0.2 tensorboard==2.14.0
 ```
 
 ## Dataset Preparation
 
 The project supports two datasets:
-- **MVTec AD**: Standard anomaly detection dataset
-- **Code10**: Barcode anomaly detection dataset
+- **MVTec AD**: [Standard anomaly detection dataset](https://www.mvtec.com/company/research/datasets/mvtec-ad)
+- **Code10**: [Barcode anomaly detection dataset](https://www.kaggle.com/datasets/amor000/a-dataset-of-label-printing-defects)
 
 Organize your dataset in the following structure:
 ```
@@ -194,4 +197,3 @@ If you use this code, please cite the original SimpleNet paper:
   year={2023}
 }
 ```
-
