@@ -9,32 +9,21 @@ This project requires Python 3.8+ and PyTorch. The environment used is PyTorch (
 ### Dependencies
 
 - Python 3.8+
-- PyTorch
-- torchvision
-- numpy
-- click
-- tqdm
-- scikit-learn
-- tensorboard
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd SimpleNet-main2
-```
-
-2. Install required packages:
-```bash
-pip install torch torchvision numpy click tqdm scikit-learn tensorboard
-```
+- Torch = 2.4.1+cu118
+- torchaudio = 2.4.1+cu118
+- torchvision = 0.19.1+cu118
+- numpy = 1.24.3
+- click = 8.1.7
+- tqdm = 4.67.0
+- timm = 0.5.4
+- scikit-learn = 1.0.2
+- tensorboard = 2.14.0
 
 ## Dataset Preparation
 
 The project supports two datasets:
-- **MVTec AD**: Standard anomaly detection dataset
-- **Code10**: Barcode anomaly detection dataset
+- **MVTec AD**: Standard anomaly detection dataset.(Link at: https://www.mvtec.com/company/research/datasets/mvtec-ad)
+- **Code10**: Barcode anomaly detection dataset. (Link at: (https://www.kaggle.com/datasets/amor000/a-dataset-of-label-printing-defects))
 
 Organize your dataset in the following structure:
 ```
@@ -45,81 +34,6 @@ data/
       ├── EAN/
       ├── QR/
       └── UPCA/
-```
-
-## Training
-
-### Basic Training
-
-Train with standard discriminator:
-
-```bash
-python main.py \
-  --gpu 0 \
-  --seed 0 \
-  --log_group amnet_code10 \
-  --log_project code10_Results1 \
-  --results_path results \
-  --run_name run \
-  --save_segmentation_images \
-  net \
-    -b resnet50 \
-    -le layer2 \
-    -le layer3 \
-    --pretrain_embed_dimension 1536 \
-    --target_embed_dimension 1536 \
-    --patchsize 3 \
-    --meta_epochs 50 \
-    --embedding_size 256 \
-    --gan_epochs 1 \
-    --noise_std 0.015 \
-    --dsc_hidden 1024 \
-    --dsc_layers 2 \
-    --dsc_margin 0.5 \
-    --pre_proj 1 \
-  dataset \
-    --batch_size 8 \
-    --resize 329 \
-    --imagesize 288 \
-    -d ACode -d Code -d EAN -d QR -d UPCA \
-    mvtec /path/to/your/data
-```
-
-### Training with Barcode Adaptive Discriminator
-
-Train with barcode-specific adaptive discriminator:
-
-```bash
-python main.py \
-  --gpu 0 \
-  --seed 0 \
-  --log_group amnet_code10_barcode \
-  --log_project code10_experiment \
-  --results_path results \
-  --run_name barcode_discriminator_run \
-  --save_segmentation_images \
-  net \
-    -b resnet50 \
-    -le layer2 \
-    -le layer3 \
-    --pretrain_embed_dimension 1536 \
-    --target_embed_dimension 1536 \
-    --patchsize 3 \
-    --meta_epochs 20 \
-    --embedding_size 256 \
-    --gan_epochs 2 \
-    --noise_std 0.02 \
-    --dsc_hidden 1024 \
-    --dsc_layers 2 \
-    --dsc_margin 0.5 \
-    --pre_proj 1 \
-    --use_barcode_discriminator \
-  dataset \
-    --batch_size 8 \
-    --resize 329 \
-    --imagesize 288 \
-    -d ACode -d Code -d EAN -d QR -d UPCA \
-    mvtec /path/to/your/data
 ```
 
 ### Using Shell Scripts
@@ -148,21 +62,6 @@ Note: Remember to update the `datapath` variable in the shell scripts to point t
 - `--log_project`: Log project name
 - `--run_name`: Run name
 - `--save_segmentation_images`: Save segmentation visualization images
-
-### Network Options
-- `-b, --backbone_names`: Backbone network (e.g., resnet50)
-- `-le, --layers_to_extract_from`: Layers to extract features from (e.g., layer2, layer3)
-- `--pretrain_embed_dimension`: Pretrained embedding dimension (default: 1536)
-- `--target_embed_dimension`: Target embedding dimension (default: 1536)
-- `--patchsize`: Patch size (default: 3)
-- `--meta_epochs`: Number of meta epochs (default: 50)
-- `--gan_epochs`: Number of GAN training epochs (default: 1)
-- `--noise_std`: Noise standard deviation (default: 0.015)
-- `--dsc_hidden`: Discriminator hidden dimension (default: 1024)
-- `--dsc_layers`: Number of discriminator layers (default: 2)
-- `--dsc_margin`: Discriminator margin (default: 0.5)
-- `--pre_proj`: Use pre-projection (default: 0, set to 1 to enable)
-- `--use_barcode_discriminator`: Use barcode adaptive discriminator
 
 ### Dataset Options
 - `-d, --subdatasets`: Subdataset names (can specify multiple)
@@ -194,4 +93,5 @@ If you use this code, please cite the original SimpleNet paper:
   year={2023}
 }
 ```
+
 
